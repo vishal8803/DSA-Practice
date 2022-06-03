@@ -105,14 +105,14 @@ class Solution
             if(slow==fast)
                 break;
         }
-        
-        fast = head;
-        if(fast == slow && fast==head){
+        if(fast==head){
             while(slow->next != head)
                 slow = slow->next;
             slow->next=NULL;
             return;
         }
+        fast = head;
+        
         while(slow->next != fast->next){
             slow = slow->next;
             fast = fast->next;
