@@ -1,51 +1,48 @@
 class Solution {
 public:
-    bool isItSafePlaceForQueen(vector<vector<int>> &chess,  int row, int col){
-        for(int i = row-1 , j=col; i>=0; i--){
-            if(chess[i][j]==1)
+    bool canPlace(int row, int col, vector<string> &temp){
+        for(int i = row-1, j =col; i>=0; i--){
+            if(temp[i][j]=='Q')
                 return false;
         }
         
-        for(int i = row-1 , j = col-1; i>=0 && j>=0; i-- , j--){
-            if(chess[i][j]==1)
+        for(int i = row-1, j = col-1; i>=0 && j>=0; i-- && j--){
+            if(temp[i][j]=='Q')
                 return false;
         }
         
-        for(int i = row-1 , j = col+1; i>=0 && j<chess.size(); i-- , j++){
-            if(chess[i][j]==1)
+        for(int i = row-1, j = col+1; i>=0 && j<temp.size(); i-- && j++){
+            if(temp[i][j]=='Q')
                 return false;
         }
         
         return true;
     }
-    void calc(vector<vector<int>> &chess, int n, int row, vector<vector<string>> &ans, vector<string> temp){
-        if(row==n){
+    void calc(int n, int i, vector<vector<string>> &ans, vector<string> &temp){
+        if(i==n){
             ans.push_back(temp);
             return;
         }
         
         for(int col = 0; col < n; col++){
-            if(isItSafePlaceForQueen(chess,row,col)){
+            if(canPlace(i,col,temp)){
+                temp[i][col] = 'Q';
+                calc(n,i+1,ans,temp);
                 
-                chess[row][col] = 1;
-                string s;
-                s.append(n,'.');
-                s[col]='Q';
-                temp.push_back(s);
-                calc(chess,n,row+1,ans,temp);
-                
-                chess[row][col] = 0;
-                s[col]='.';
-                temp.pop_back();
+                temp[i][col] = '.';
             }
         }
     }
+    
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
+        string elem(n,'.');
+        vector<string> temp;
         
-        vector<vector<int>> chess(n,vector<int>(n,0));
-        calc(chess,n,0,ans,{});
+        for(int i = 0; i < n; i++){
+            temp.push_back(elem);
+        }
+        calc(n,0,ans,temp);
         return ans;
-        
     }
 };
