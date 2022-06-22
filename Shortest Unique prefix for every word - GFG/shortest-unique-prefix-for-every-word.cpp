@@ -10,41 +10,45 @@ using namespace std;
 class Solution
 {
     public:
-    struct Trie{
-        Trie* node[26];
+    struct Node{
+        Node* children[26];
         int cp = 0;
     };
     
     vector<string> findPrefixes(string arr[], int n)
     {
-        Trie* root = new Trie();
+        Node* root = new Node();
+        
         for(int i = 0; i < n; i++){
-            Trie* temp = root;
-            string word = arr[i];
-            for(int i = 0; i < word.length(); i++){
-                if(temp->node[word[i]-'a']==NULL){
-                    temp->node[word[i]-'a'] = new Trie();
+            string s = arr[i];
+            Node* temp = root;
+            
+            for(char ch : s){
+                if(temp->children[ch-'a']==NULL){
+                    temp->children[ch-'a']= new Node();
                 }
-                temp = temp->node[word[i]-'a'];
+                temp = temp->children[ch-'a'];
                 temp->cp = temp->cp + 1;
             }
-            
         }
         
         vector<string> ans;
+        
         for(int i = 0; i < n; i++){
-            string word = arr[i];
-            Trie* temp = root;
-            string res = "";
-            for(int j = 0; j < word.length(); j++){
-                res += word[j];
-                temp = temp->node[word[j]-'a'];
-                if(temp->cp>=2)
+            string s = arr[i];
+            Node* t = root;
+            string k = "";
+            
+            for(char ch : s){
+                k += ch;
+                t=t->children[ch-'a'];
+                if(t->cp>=2){
                     continue;
-                else
+                }else{
                     break;
+                }
             }
-            ans.push_back(res);
+            ans.push_back(k);
         }
         
         return ans;
