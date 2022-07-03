@@ -9,35 +9,33 @@ using namespace std;
 
 class Solution{
 public:
-    void calc(int n, vector<string> &ans, string s, string temp, string ansS, int i, set<string> &st,bool f){
+    void calc(set<string> &st, vector<string> &ans, string s, int i, string temp){
         if(i==s.length()){
-            if(f)
-                ans.push_back(ansS);
+            ans.push_back(temp);
             return;
         }
-        
-        temp += s[i];
-        // cout<<temp<<endl;
-        
-        if(st.find(temp) != st.end()){
-            if(i+1==s.length())
-                calc(n,ans,s,"",ansS+temp,i+1,st, true);
-            else
-                calc(n,ans,s,"",ansS+temp+" ",i+1,st, true);
+        string t = "";
+        for(int j = i; j < s.length(); j++){
+            t += s[j];
+            if(st.find(t) != st.end()){
+                if(temp=="")
+                calc(st,ans,s,j+1,temp + t);
+                else
+                calc(st,ans,s,j+1,temp + " " + t);
+            }
         }
-        calc(n,ans,s,temp,ansS,i+1,st, false);
     }
-    
     vector<string> wordBreak(int n, vector<string>& dict, string s)
     {
-        set<string> st;
-        for(string s : dict){
-            st.insert(s);
-        }
         vector<string> ans;
-        
-        calc(n,ans,s,"","",0,st,false);
+        set<string> st;
+        for(auto it : dict){
+            st.insert(it);
+        }
+        calc(st,ans,s,0,"");
+        sort(ans.begin(),ans.end());
         return ans;
+        
     }
 };
 
