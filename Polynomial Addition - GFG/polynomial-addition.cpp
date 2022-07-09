@@ -93,20 +93,17 @@ class Solution{
         
         while(p1 && p2){
             if(p1->pow==p2->pow){
-                Node* d = new Node(p1->coeff + p2->coeff,p1->pow);
-                temp->next = d;
-                temp = temp->next;
+                temp->next = new Node(p1->coeff + p2->coeff, p1->pow);
                 p1 = p1->next;
                 p2 = p2->next;
             }else if(p1->pow > p2->pow){
                 temp->next = p1;
-                temp = temp->next;
                 p1 = p1->next;
             }else{
                 temp->next = p2;
-                temp = temp->next;
                 p2 = p2->next;
             }
+            temp = temp->next;
         }
         if(p1){
             temp->next = p1;
@@ -114,7 +111,6 @@ class Solution{
         if(p2){
             temp->next = p2;
         }
-        
         return dummy->next;
     }
 };
