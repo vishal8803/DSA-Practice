@@ -40,6 +40,12 @@ public:
             return false;
         
         sort(matchsticks.begin(), matchsticks.end(), greater<int>());
+        
+        for(int i : matchsticks){
+            if(i > sum/4)
+                return false;
+        }
+        
         return calc(matchsticks,0,sum/4,sum/4,sum/4,sum/4);
         
     }
