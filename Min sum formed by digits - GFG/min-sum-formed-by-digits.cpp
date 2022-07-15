@@ -8,17 +8,21 @@ class Solution{
     public:
     long long int minSum(int arr[], int n)
     {
+        long long int num1 = 0;
+        long long int num2 = 0;
+        
         sort(arr,arr+n);
-        long long int s1 = 0;
-        long long int s2 = 0;
+        
         for(int i = 0; i < n; i+=2){
-            s1 = s1*10 + arr[i];
+            num1 = num1*10 + arr[i];
+            if(i+1<n){
+                num2 = num2*10 + arr[i+1];
+            }
         }
-        for(int i = 1; i < n; i+=2){
-            s2 = s2*10 + arr[i];
-        }
-        long long int r1 = s1 + s2;
-        return r1;
+        
+        long long int ans = num1 + num2;
+        
+        return ans;
     }
 };
 
