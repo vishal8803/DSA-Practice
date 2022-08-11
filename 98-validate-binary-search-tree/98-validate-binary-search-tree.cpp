@@ -11,23 +11,18 @@
  */
 class Solution {
 public:
-    bool calc(TreeNode* root, long long mx, long long mn){
-        if(root==NULL)
-            return true;
+    bool calc(TreeNode* root, long mn, long mx) {
+        if(root==NULL) return true;
         
-        if(root->val >= mx || root->val <= mn)
-            return false;
+        if(root->val<=mn || root->val>=mx) return false;
         
-        if(root->left==NULL && root->right==NULL)
-            return true;
-        
-        bool lt = calc(root->left,root->val,mn);
-        bool rt = calc(root->right,mx,root->val);
+        bool lt = calc(root->left, mn, root->val);
+        bool rt = calc(root->right, root->val, mx);
         
         return lt&rt;
     }
+    
     bool isValidBST(TreeNode* root) {
-        
-        return calc(root,LONG_MAX,LONG_MIN);
+        return calc(root, LONG_MIN, LONG_MAX);
     }
 };
