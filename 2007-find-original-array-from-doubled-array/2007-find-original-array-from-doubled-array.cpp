@@ -1,9 +1,9 @@
 class Solution {
 public:
-//     void erase(map<int,int> &mp, int val) {
-//         mp[val]--;
-//         if(mp[val]==0) mp.erase(val);
-//     }
+    void erase(map<int,int> &mp, int val) {
+        mp[val]--;
+        if(mp[val]==0) mp.erase(val);
+    }
     
     vector<int> findOriginalArray(vector<int>& changed) {
         map<int,int> mp;
@@ -21,11 +21,9 @@ public:
                 continue;
             }
             if(mp.find(2*t) == mp.end()) return {};
-            mp[2*t]--;
-            mp[t]--;
             
-            if(mp[2*t]==0) mp.erase(2*t);
-            if(mp[t]==0) mp.erase(t);
+            erase(mp,t);
+            erase(mp,2*t);
             
             ans.push_back(t);
         }
