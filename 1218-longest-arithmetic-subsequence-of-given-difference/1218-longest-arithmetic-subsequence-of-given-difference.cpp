@@ -1,9 +1,8 @@
 class Solution {
 public:
     int longestSubsequence(vector<int>& arr, int difference) {
-        int mx = *max_element(arr.begin(), arr.end());
+        unordered_map<int, int> dp;
         
-        map<int, int> dp;
         for(int i : arr) {
             dp[i] = 1 + dp[i - difference];
         }
