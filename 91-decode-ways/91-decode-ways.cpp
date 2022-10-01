@@ -38,8 +38,6 @@ public:
                 }
             }
         }
-//         for(int i : dp)
-//             cout<<i<<" ";
         
         return dp[s.length()-1];
     }
