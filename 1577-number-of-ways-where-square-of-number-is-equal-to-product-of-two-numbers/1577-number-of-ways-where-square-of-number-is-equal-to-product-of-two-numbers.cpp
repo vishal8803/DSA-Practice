@@ -1,8 +1,8 @@
 class Solution {
 public:
     int numTriplets(vector<int>& nums1, vector<int>& nums2) {
-        map<long long,int> mp1;
-        map<long long,int> mp2;
+        unordered_map<long long,int> mp1;
+        unordered_map<long long,int> mp2;
         
         for(int i = 0; i < nums1.size(); i++) {
             mp1[(long long)nums1[i]*(long long)nums1[i]]++;
