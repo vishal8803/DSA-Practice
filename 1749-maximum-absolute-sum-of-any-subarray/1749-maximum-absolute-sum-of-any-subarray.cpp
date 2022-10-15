@@ -15,7 +15,6 @@ public:
     }
     
     int maxAbsoluteSum(vector<int>& nums) {
-        int sum = maxSum(nums);
-        return max(sum, maxSum(nums));
+        return max(maxSum(nums),maxSum(nums));
     }
 };
