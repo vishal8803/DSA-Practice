@@ -4,10 +4,11 @@ public:
         int cs = 0;
         int sum = nums[0];
         
-        for(int i : nums) {
-            cs += i;
+        for(int i = 0; i < nums.size(); i++) {
+            cs += nums[i];
             sum = max(sum, cs);
             if(cs < 0) cs = 0;
+            nums[i] = -nums[i];
         }
         
         return sum;
@@ -15,13 +16,6 @@ public:
     
     int maxAbsoluteSum(vector<int>& nums) {
         int sum = maxSum(nums);
-        
-        
-        for(int i = 0; i < nums.size(); i++) {
-            nums[i] = -nums[i];
-        }
-        
         return max(sum, maxSum(nums));
-        
     }
 };
