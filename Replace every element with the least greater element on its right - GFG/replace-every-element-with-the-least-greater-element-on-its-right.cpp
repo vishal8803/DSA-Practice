@@ -1,35 +1,35 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 /* Driver program to test above function */
 
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 //Back-end complete function Template for C++
 
 class Solution{
     public:
     vector<int> findLeastGreater(vector<int>& arr, int n) {
-        set<int> st;
-            
         vector<int> ans;
+        set<int> st;
+        st.insert(arr[n-1]);
+        ans.push_back(-1);
         
-        for(int i = n-1; i >= 0; i--){
-            st.insert(arr[i]);
-            
-            auto it = st.upper_bound(arr[i]);
-            if(it==st.end()){
-                ans.push_back(-1);
-            }else{
+        for(int i = n - 2; i >= 0; i--) {
+            auto it = st.lower_bound(arr[i] + 1);
+            if(it != st.end()) {
                 ans.push_back(*it);
             }
+            else ans.push_back(-1);
+            st.insert(arr[i]);
         }
+        
         reverse(ans.begin(), ans.end());
         return ans;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 int main()
 {
 	int t;
@@ -51,4 +51,5 @@ int main()
 	}
 	return 0;
 }
-  // } Driver Code Ends
+
+// } Driver Code Ends
