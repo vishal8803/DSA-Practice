@@ -1,7 +1,6 @@
 # Find Pair Given Difference
-## Easy 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an array <strong>Arr[]</strong> of size <strong>L</strong> and a number <strong>N,</strong>&nbsp;you need to write a program to find if there exists a pair of elements in the array whose difference is <strong>N</strong>.</span></p>
+## Easy
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array <strong>Arr[]</strong> of size <strong>L</strong> and a number <strong>N,</strong>&nbsp;you need to write a program to find if there exists a pair of elements in the array whose difference is <strong>N</strong>.</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
 
@@ -30,5 +29,4 @@ You need not take input or print anything. Your task is to complete the function
 1&lt;=Arr[i]&lt;=10<sup>5&nbsp;</sup></span></p>
 
 <p><span style="font-size:18px">0&lt;=N&lt;=10<sup>5</sup></span></p>
- <p></p>
-            </div>
+</div>
