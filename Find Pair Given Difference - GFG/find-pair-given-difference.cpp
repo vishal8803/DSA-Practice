@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
  
 using namespace std; 
@@ -24,32 +24,29 @@ int main()
     
   
     return 0;
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
-bool isPresent(int arr[], int st, int end, int target){
-    while(st<=end){
-        int mid = (st+end)/2;
-        if(arr[mid]==target)
-            return true;
-        else if(arr[mid]>target){
-            end = mid - 1;
-        }else{
-            st = mid + 1;
-        }
+bool calc(int arr[], int st, int end, int target) {
+    while(st <= end) {
+        int mid = (st + end) / 2;
+        if(arr[mid] == target) return true;
+        else if(arr[mid] > target) end = mid - 1;
+        else st = mid + 1;
     }
+    
     return false;
 }
 
 bool findPair(int arr[], int size, int n){
-    sort(arr,arr+size);
+    sort(arr, arr + size);
     
-    for(int i = 0; i < size; i++){
-        int target = arr[i];
-        if(isPresent(arr,i+1,size-1,target+n)){
-            return true;
-        }
+    for(int i = 0; i < size; i++) {
+        int target = arr[i] + n;
+        if(calc(arr, i+1, size - 1, target)) return true;
     }
     
     return false;
+    
 }
