@@ -8,28 +8,61 @@ using namespace std;
 
 class Solution {
   public:
-    void dfs(vector<vector<int>> &adj, vector<bool> &vis, int node) {
-        vis[node] = true;
-        for(int i = 0; i < adj[node].size(); i++) {
-            if(i == node) continue;
-            if(adj[node][i] and !vis[i]) dfs(adj, vis, i);
-        }
-    }
-    int numProvinces(vector<vector<int>> adj, int V) {
-        vector<bool> vis(V, false);
-        int count = 0;
-        
+    int parent[501];
+	int rnk[501];
+	
+	void makeset(int n) {
+	    for(int i = 0; i < n; i++) {
+	        parent[i] = i;
+	        rnk[i] = 0;
+	    }
+	}
+	
+	int findParent(int node) {
+	    if(node == parent[node]) return node;
+	    
+	    return parent[node] = findParent(parent[node]);
+	}
+	
+	void makeUnion(int node1, int node2) {
+	    node1 = findParent(node1);
+	    node2 = findParent(node2);
+	    
+	    if(rnk[node1] > rnk[node2]) {
+	        parent[node2] = node1;
+	    } else if(rnk[node2] > rnk[node1]) {
+	        parent[node1] = node2;
+	    } else {
+	        parent[node1] = node2;
+	        rnk[node1]++;
+	    }
+	}
+	
+    int numProvinces(vector<vector<int>> adj, int V) 
+    {
+        makeset(V);
+        vector<vector<int>> edges;
         for(int i = 0; i < V; i++) {
-            if(!vis[i]) {
-                count++;
-                // cout<<i<<endl;
-                dfs(adj, vis, i);
+            for(int j = 0; j < V; j++) {
+                if(adj[i][j])
+                    edges.push_back({i,j});
             }
         }
+        set<int> st;
+        for(auto edge : edges) {
+            int x = edge[0];
+            int y = edge[1];
+            if(findParent(x) == findParent(y)) continue;
+            makeUnion(x,y);
+        }
         
-        return count;
+        for(int i = 0; i < V; i++) {
+            st.insert(findParent(i));
+        }
+        return st.size();
     }
 };
+
 
 //{ Driver Code Starts.
 
