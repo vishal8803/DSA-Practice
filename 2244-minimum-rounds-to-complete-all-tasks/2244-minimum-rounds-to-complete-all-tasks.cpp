@@ -17,8 +17,8 @@ public:
                 mp.erase(elem);
             } else {
                 if(freq == 1) return -1;
-                mp[elem] = freq - 3;
-                    count++;
+                mp[elem] = 4;
+                count += freq/3 - 1;
             }
         }
         return count;
