@@ -7,12 +7,12 @@ public:
             sum += i;
         }
         
+        string ans = "";
+        
         if(sum%3==0) {
-            string ans = "";
             for(int i : digits) ans += to_string(i);
-            sort(ans.begin(), ans.end(), greater<char>());
-            return ans;
-        } else if(sum%3==1) {
+        } 
+        else if(sum%3==1) {
             bool f1 = false;
             for(int i : digits) {
                 if(i%3==1) {
@@ -22,7 +22,6 @@ public:
             }
             if(f1) {
                 int count = 0;
-                string ans = "";
                 for(int i : digits) {
                     if(i%3==1 and count == 0) {
                         count++;
@@ -30,27 +29,24 @@ public:
                     }
                     ans += to_string(i);
                 }
-                sort(ans.begin(), ans.end(), greater<char>());
-                return ans;
             }
-            int count = 0;
-            for(int i : digits) {
-                if(i%3==2) count++;
-            }
-            if(count >= 2) {
-                count = 0;
-                string ans = "";
+            else {
+                int count = 0;
                 for(int i : digits) {
-                    if(i%3==2 and count < 2) {
-                        continue;
-                    }
-                    ans += to_string(i);
+                    if(i%3==2) count++;
                 }
-                sort(ans.begin(), ans.end(), greater<char>());
-                return ans;
+                if(count >= 2) {
+                    count = 0;
+                    for(int i : digits) {
+                        if(i%3==2 and count < 2) {
+                            continue;
+                        }
+                        ans += to_string(i);
+                    }
+                }
             }
-            return "";
-        } else if(sum%3==2) {
+        } 
+        else if(sum%3==2) {
             bool f1 = false;
             for(int i : digits) {
                 if(i%3==2) {
@@ -60,7 +56,6 @@ public:
             }
             if(f1) {
                 int count = 0;
-                string ans = "";
                 for(int i : digits) {
                     if(i%3==2 and count == 0) {
                         count++;
@@ -68,28 +63,28 @@ public:
                     }
                     ans += to_string(i);
                 }
-                sort(ans.begin(), ans.end(), greater<char>());
-                return ans;
-            }
-            int count = 0;
-            for(int i : digits) {
-                if(i%3==1) count++;
-            }
-            if(count >= 2) {
-                count = 0;
-                string ans = "";
+            } 
+            else {
+                int count = 0;
                 for(int i : digits) {
-                    if(i%3==1 and count < 2) {
-                        continue;
-                    }
-                    ans += to_string(i);
+                    if(i%3==1) count++;
                 }
-                sort(ans.begin(), ans.end(), greater<char>());
-                return ans;
+                if(count >= 2) {
+                    count = 0;
+                    for(int i : digits) {
+                        if(i%3==1 and count < 2) {
+                            continue;
+                        }
+                        ans += to_string(i);
+                    }
+                }
             }
-            return "";
+            
         }
-        return "";
+        
+        sort(ans.begin(), ans.end(), greater<char>());
+        return ans;
+        
     }
     
     
