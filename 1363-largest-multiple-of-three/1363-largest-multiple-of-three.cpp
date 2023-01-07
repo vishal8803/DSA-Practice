@@ -53,19 +53,13 @@ public:
             else if(c1 >= 2) {
                 int count = 0;
                 for(int i : digits) {
-                    if(i%3==1) count++;
-                }
-                if(count >= 2) {
-                    count = 0;
-                    for(int i : digits) {
-                        if(i%3==1 and count < 2) {
-                            continue;
-                        }
-                        ans += to_string(i);
+                    if(i%3==1 and count < 2) {
+                        count++;
+                        continue;
                     }
+                    ans += to_string(i);
                 }
             }
-            
         }
         
         sort(ans.begin(), ans.end(), greater<char>());
