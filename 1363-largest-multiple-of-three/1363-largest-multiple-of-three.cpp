@@ -2,9 +2,14 @@ class Solution {
 public:
     string calc(vector<int>& digits) {
         int sum = 0;
+        int c1 = 0, c2 = 0;
+        
         sort(digits.begin(), digits.end());
         for(int i : digits) {
             sum += i;
+            
+            if(i%3==1) c1++;
+            else if(i%3==2) c2++;
         }
         
         string ans = "";
@@ -13,14 +18,7 @@ public:
             for(int i : digits) ans += to_string(i);
         } 
         else if(sum%3==1) {
-            bool f1 = false;
-            for(int i : digits) {
-                if(i%3==1) {
-                    f1 = true;
-                    break;
-                }
-            }
-            if(f1) {
+            if(c1>0) {
                 int count = 0;
                 for(int i : digits) {
                     if(i%3==1 and count == 0) {
@@ -30,31 +28,19 @@ public:
                     ans += to_string(i);
                 }
             }
-            else {
+            else if(c2 >= 2) {
                 int count = 0;
                 for(int i : digits) {
-                    if(i%3==2) count++;
-                }
-                if(count >= 2) {
-                    count = 0;
-                    for(int i : digits) {
-                        if(i%3==2 and count < 2) {
-                            continue;
-                        }
-                        ans += to_string(i);
+                    if(i%3==2 and count < 2) {
+                        count++;
+                        continue;
                     }
+                    ans += to_string(i);
                 }
             }
         } 
         else if(sum%3==2) {
-            bool f1 = false;
-            for(int i : digits) {
-                if(i%3==2) {
-                    f1 = true;
-                    break;
-                }
-            }
-            if(f1) {
+            if(c2 > 0) {
                 int count = 0;
                 for(int i : digits) {
                     if(i%3==2 and count == 0) {
@@ -64,7 +50,7 @@ public:
                     ans += to_string(i);
                 }
             } 
-            else {
+            else if(c1 >= 2) {
                 int count = 0;
                 for(int i : digits) {
                     if(i%3==1) count++;
