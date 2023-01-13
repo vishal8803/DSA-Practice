@@ -1,7 +1,7 @@
 class Solution {
 public:
     long long interchangeableRectangles(vector<vector<int>>& rectangles) {
-        map<double,int> mp;
+        unordered_map<double,int> mp;
         for(auto it : rectangles) {
             double val = (double)it[0]/(double)it[1];
             mp[val]++;
