@@ -20,7 +20,7 @@ public:
             while(size--) {
                 string temp = q.front();
                 q.pop();
-                // cout<<temp<<endl;
+                
                 string s1 = rotateString(temp, b); // only rotated
                 string s2 = temp; // only added
                 
@@ -30,23 +30,18 @@ public:
                     s2[i] = '0' + (((s2[i] - '0') + a)%10);
                 }
                 
-                // string s3 = rotateString(s2, b); //  added and rotated
                 
                 if(st.find(s1) == st.end()) {
                     if(ans > s1) ans = s1;
                     st.insert(s1);
                     q.push(s1);
                 }
+                
                 if(st.find(s2) == st.end()) {
                     if(ans > s2) ans = s2;
                     st.insert(s2);
                     q.push(s2);
                 }
-                // if(st.find(s3) == st.end()) {
-                //     if(ans > s3) ans = s3;
-                //     st.insert(s3);
-                //     q.push(s3);
-                // }
             }
         }
         
