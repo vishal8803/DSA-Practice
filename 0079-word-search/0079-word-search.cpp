@@ -1,37 +1,44 @@
 class Solution {
 public:
-    void test(vector<vector<char>>& board , vector<vector<bool>> &visited , string &word ,int i,bool &ans,int row ,int col)
-    {
-        if(i==word.length())
-        {
-            ans = true ;
-            return ;
-        }
-        if(row<0 || col<0 || row>=board.size() || col>=board[0].size() || visited[row][col] || board[row][col] != word[i])
-            return ;
+    bool isFind = false;
+void dfs(int row,int col,int index,vector<vector<char>> &board,string &word,vector<vector<int>> &vis){
+        int n=board.size();
+        int m=board[0].size();
         
-        visited[row][col]=true ;
-        test(board,visited,word,i+1,ans,row-1,col);
-        test(board,visited,word,i+1,ans,row,col-1);
-        test(board,visited,word,i+1,ans,row+1, col);
-        test(board,visited,word,i+1,ans,row,col+1);
-        visited[row][col]=false ;
+        if(index>=word.size()|| isFind) {
+            isFind = true;
+            return;
+        }
+
+        vis[row][col]=1;
+        int delrow[] = {-1,0,+1,0};
+        int delcol[] = {0,+1,0,-1};
+        for(int i=0;i<4;i++){
+            int newrow=row+delrow[i];
+            int newcol=col+delcol[i];
+            if(newrow>=0 && newrow<n && newcol>=0 && newcol<m
+            && vis[newrow][newcol] == 0 && board[newrow][newcol]==word[index]){
+                dfs(newrow,newcol,index+1,board,word,vis);
+            }
+        }
+        vis[row][col]=0;
     }
     
     bool exist(vector<vector<char>>& board, string word) {
-        bool ans = false ;
-        vector<vector<bool>> visited(board.size() ,vector<bool>(board[0].size(),false));
-        for(int i=0 ; i<board.size() ; i++)
-        {
-            for(int j=0 ; j<board[0].size() ; j++)
-            {
-                test(board,visited,word,0,ans,i,j);
-                if(ans)
-                    break ;
+        int n=board.size();
+        int m=board[0].size();
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                
+                if(board[i][j]==word[0] and !vis[i][j]){
+                    dfs(i,j,1,board,word,vis);
+                    if (isFind==true)
+                        return true;
+                }
             }
-            if(ans)
-                break;
         }
-        return ans ;
+        return false;
     }
 };
