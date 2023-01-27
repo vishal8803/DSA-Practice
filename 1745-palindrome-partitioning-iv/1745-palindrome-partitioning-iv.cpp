@@ -24,12 +24,6 @@ public:
             }
         }
         
-        // for(int i = 0; i < n; i++) {
-        //     for(int j = 0; j < n; j++) {
-        //         cout<<dp[i][j]<<" ";
-        //     }cout<<endl;
-        // }
-        
         for(int i = 0; i < s.size(); i++) {
             for(int j = s.size() - 1; j >= 0; j--) {
                 if(dp[0][i] and dp[j][s.size()-1] and dp[i+1][j-1]) return true;
