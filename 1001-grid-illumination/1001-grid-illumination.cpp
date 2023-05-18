@@ -37,15 +37,12 @@ public:
         
         loop(i, 0, len(q)) {
             auto it = q[i];
-            // cout<<it[0]<<" "<<it[1]<<endl;
             if(row[it[0]] > 0 or col[it[1]] > 0 or p_col[it[0] + it[1]] > 0 or s_col[it[0] - it[1]] > 0) {
                 ans.pb(1);
                 loop(j, 0, 9) {
                     int nx = it[0] + directions[j][0];
                     int ny = it[1] + directions[j][1];
-                    // cout<<nx<<" "<<ny<<endl;
                     if(nx >= 0 and ny >= 0 and nx < n and ny < n and st.count({nx, ny}) > 0) {
-                        // cout<<nx<<"-"<<ny<<endl;
                         row[nx]--;
                         col[ny]--;
                         p_col[nx+ny]--;
@@ -53,15 +50,9 @@ public:
                         st.erase(st.find({nx, ny}));
                     }
                 }
-                
-            }
-                
-             else {
+            } else {
                 ans.pb(0);
             }
-        
-        
-            
         }
         
         return ans;
