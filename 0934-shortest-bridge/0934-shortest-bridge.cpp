@@ -1,105 +1,60 @@
 class Solution {
 public:
- void accumulateFirstIsland(vector<vector<int>>& grid, int i ,int j,queue<pair<int,int>> &q, vector<vector<bool>> &visited)
-        {
-            if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || visited[i][j] || grid[i][j]==0)
-            {
-                return ;
-            }
-            visited[i][j] = true; 
-            q.push({i,j});
-            accumulateFirstIsland(grid,i-1,j,q,visited);
-            accumulateFirstIsland(grid,i,j+1,q,visited);
-            accumulateFirstIsland(grid,i+1,j,q,visited);
-            accumulateFirstIsland(grid,i,j-1,q,visited);
+    void dfs(vector<vector<int>> &grid, vector<vector<int>> &vis, int i, int j, queue<pair<int,int>> &q) {
+        if(i < 0 or j < 0 or i >= grid.size() or j >= grid[0].size() or grid[i][j] == 0 or vis[i][j] ) {
+            return;
         }
+        
+        q.push({i, j});
+        vis[i][j] = 1;
+        
+        dfs(grid, vis, i + 1, j, q);
+        dfs(grid, vis, i, j + 1, q);
+        dfs(grid, vis, i, j - 1, q);
+        dfs(grid, vis, i - 1, j, q);
+    }
     
-        int shortestBridge(vector<vector<int>>& grid) {
-            
-            
+    int shortestBridge(vector<vector<int>>& grid) {
+        queue<pair<int,int>> q;
         int n = grid.size();
-        int m = grid[0].size();
-            vector<vector<bool>> visited(n,vector<bool>(m,false));
-        //Finding the first island
-        bool find = false; 
-        queue<pair<int,int>> q ;
-        for(int i=0 ; i<grid.size(); i++)
-        {
-            for(int j=0; j<grid[0].size(); j++)
-            {
-                if(grid[i][j]==1)
-                {
-                    accumulateFirstIsland(grid,i,j,q,visited);
-                    find = true ;
+        int m = grid.size();
+        
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+        
+        for(int i = 0; i < n; i++) {
+            bool flag = false;
+            for(int j = 0; j < m; j++) {
+                if(grid[i][j] == 1) {
+                    dfs(grid, vis, i, j, q);
+                    flag = true;
                     break;
                 }
             }
-            if(find)
-                break;
+            if(flag) break;
         }
-        int level =0 ;
-        while(!q.empty())
-        {
-            int n = q.size();
-            while(n--)
-            {
-                int x = q.front().first;
-                int y = q.front().second;
+        
+        int level = 0;
+        vector<vector<int>> directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        
+        while(q.size() > 0) {
+            int size = q.size();
+            while(size--) {
+                auto it = q.front();
                 q.pop();
-                if(x+1<grid.size() )
-                {
-                    if(  grid[x+1][y]==0)
-                    {
-                        visited[x+1][y] = true ;
-                       grid[x+1][y] = 1 ;
-                    q.push({x+1,y}); 
-                    }else if(grid[x+1][y]==1 && !visited[x+1][y])
-                    {
-                        return level ;
-                    }
+                
+                for(auto &direction : directions) {
+                    int nx = direction[0] + it.first;
+                    int ny = direction[1] + it.second;
                     
-                }
-                if(x-1>=0  )
-                {
-                    if(  grid[x-1][y]==0)
-                    {
-                        visited[x-1][y] = true ;
-                       grid[x-1][y]=1 ;
-                    q.push({x-1,y});
-                    }else if(grid[x-1][y]==1  && !visited[x-1][y])
-                    {
-                        return level ;
-                    }
+                    if(nx < 0 or ny < 0 or nx >= n or ny >= m or vis[nx][ny]) continue;
                     
-                }
-                if(y-1>=0  )
-                {
-                     if( grid[x][y-1]==0)
-                    {
-                         visited[x][y-1] = true ;
-                       grid[x][y-1]=1 ;
-                    q.push({x,y-1});
-                    }else if(grid[x][y-1]==1 && !visited[x][y-1])
-                    {
-                        return level ;
-                    }
-                }
-                if(y+1<grid[0].size() )
-                {
-                      if(  grid[x][y+1]==0)
-                    {
-                          visited[x][y+1] = true ;
-                       grid[x][y+1]=1 ;
-                    q.push({x,y+1});
-                    }else if(grid[x][y+1]==1 && !visited[x][y+1])
-                    {
-                        return level ;
-                    }
+                    if(grid[nx][ny] == 1) return level;
+                    q.push({nx, ny});
+                    vis[nx][ny] = 1;
                 }
             }
-            // cout<<"hello";
-            level++ ;
+            level++;
         }
-            return level ;
+        return -1;
     }
 };
