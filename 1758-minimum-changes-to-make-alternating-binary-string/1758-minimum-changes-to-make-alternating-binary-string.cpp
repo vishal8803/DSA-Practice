@@ -7,16 +7,10 @@ public:
         for(int i = 0; i < s.size(); i++) {
             if(i % 2 == 0) {
                 if(s[i] != '0') cnt++;
+                else cnt2++;
             } else {
                 if(s[i] != '1') cnt++;
-            }
-        }
-        
-        for(int i = 0; i < s.size(); i++) {
-            if(i % 2 == 0) {
-                if(s[i] != '1') cnt2++;
-            } else {
-                if(s[i] != '0') cnt2++;
+                else cnt2++;
             }
         }
         
